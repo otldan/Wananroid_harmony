@@ -15,6 +15,26 @@
     {
       "name": "internet_permission_reason",
       "value": "获取网络数据"
+    },
+    {
+      "name": "home",
+      "value": "首页"
+    },
+    {
+      "name": "featured",
+      "value": "专题"
+    },
+    {
+      "name": "square",
+      "value": "广场"
+    },
+    {
+      "name": "no_public",
+      "value": "公众号"
+    },
+    {
+      "name": "mine",
+      "value": "我的"
     }
   ]
 }

@@ -1,20 +1,61 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  private tabsController = new TabsController()
+  @State currentIndex: number = 0
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize(50)
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
+
+    Column() {
+      Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
+        TabContent() {
+          // Home()
+        }.tabBar(this.tabBuilder($r('app.string.home'), 0, $r("app.media.ic_tab_home_select"), $r("app.media.ic_tab_home")))
+
+        TabContent() {
+          // Square()
+        }.tabBar(this.tabBuilder($r('app.string.featured'), 1, $r("app.media.ic_tab_featured_select"), $r("app.media.ic_tab_featured")))
+
+        TabContent() {
+          // TreeTab()
+        }.tabBar(this.tabBuilder($r('app.string.square'), 2, $r("app.media.ic_tab_square_select"), $r("app.media.ic_tab_square")))
+
+        TabContent() {
+          // Wechat()
+        }.tabBar(this.tabBuilder($r('app.string.no_public'), 3, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
+
+        TabContent() {
+          // Mine()
+        }.tabBar(this.tabBuilder($r('app.string.mine'), 4, $r("app.media.ic_tab_my_select"), $r("app.media.ic_tab_my")))
+      }
+      .scrollable(false)
+      .layoutWeight(1)
+      .animationDuration(0)
+      .backgroundColor($r("app.color.start_window_background"))
+
     }
-    .height('100%')
+  }
+
+  @Builder
+  tabBuilder(title:ResourceStr,targetIndex:number,selectedImg:Resource,normalImg:Resource){
+    Column() {
+      Image(this.currentIndex === targetIndex ? selectedImg : normalImg)
+        .size({ width: 24, height: 24 })
+        .fillColor(this.currentIndex === targetIndex ? $r("app.color.main") : $r("app.color.navi_tab_unselect"))
+      Text(title)
+        .margin({
+          top:$r("app.float.size_5")
+        })
+        .fontColor(this.currentIndex === targetIndex ? $r("app.color.main") : $r("app.color.navi_tab_unselect"))
+        .fontSize(11)
+    }
     .width('100%')
+    .height('100%')
+    .backgroundColor($r("app.color.navi_bar_bg"))
+    .justifyContent(FlexAlign.Center)
+    .onClick(() => {
+      this.currentIndex = targetIndex
+      this.tabsController.changeIndex(targetIndex)
+    })
   }
 }
