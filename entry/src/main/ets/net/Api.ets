@@ -1,16 +1,16 @@
 import http from '@ohos.net.http';
 import hilog from '@ohos.hilog';
-import { Article, ArticleList, HomeBannerData } from './model/Article';
+import { Article, ArticleList, HomeBannerData } from '../model/Article';
 import { User } from '../user/UserLoginInfo';
 import uri from '@ohos.uri';
 import PersistentCookieJar from './cookie/PersistentCookieJar';
 import CookieJar from './cookie/CookieJar';
 import EntryContext from '../common/EntryContext';
 import CookieUtils from './cookie/CookieUtils';
-import { Response } from './model/Response';
-import { HotKey } from './model/Search';
-import { WeChatAuthor } from './model/WeChat';
-import { Tree } from './model/Tree';
+import { Response } from '../model/Response';
+import { HotKey } from '../model/Search';
+import { WeChatAuthor } from '../model/WeChat';
+import { Tree } from '../model/Tree';
 import JSON from '@ohmos/json-bigint';
 
 const TAG = "Api";
