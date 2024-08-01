@@ -1,3 +1,5 @@
+import { Home } from './Home'
+
 @Entry
 @Component
 struct Index {
@@ -9,7 +11,7 @@ struct Index {
     Column() {
       Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
         TabContent() {
-          // Home()
+          Home()
         }.tabBar(this.tabBuilder($r('app.string.home'), 0, $r("app.media.ic_tab_home_select"), $r("app.media.ic_tab_home")))
 
         TabContent() {
