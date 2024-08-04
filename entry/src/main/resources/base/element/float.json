@@ -1,6 +1,10 @@
 {
   "float": [
     {
+      "name": "size_2",
+      "value": "2vp"
+    },
+    {
       "name": "size_5",
       "value": "5vp"
     },
@@ -9,12 +13,24 @@
       "value": "6vp"
     },
     {
-      "name": "float_16",
-      "value": "16fp"
+      "name": "size_12",
+      "value": "12vp"
     },
     {
       "name": "size_16",
       "value": "16vp"
+    },
+    {
+      "name": "size_40",
+      "value": "40vp"
+    },
+    {
+      "name": "float_16",
+      "value": "16fp"
+    },
+    {
+      "name": "float_18",
+      "value": "18fp"
     }
   ]
 }

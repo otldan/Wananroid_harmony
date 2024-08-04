@@ -1,9 +1,9 @@
 import { HomeBannerData } from '../model/Article';
 import { Logger } from '../utils/LogUtils'
 import { LoadState } from '../widgets/PageLoading';
-// import Api from '../net/Api'
+import Api from '../net/Api'
 import { Popular } from '../model/Popular';
-import {recommend} from '../model/Recommend'
+import { recommend } from '../model/Recommend'
 import { router } from '@kit.ArkUI';
 
 declare type HomeItemData = HomeBannerData[] | Popular
@@ -33,16 +33,16 @@ export struct Home {
   }
 
   // async loadDataByPage(): Promise<HomeItemData[]> {
-    // const bannerRes = await Api.get().getHomeBanner();
-    // // const recommend =
-    // if (bannerRes.isSuccessWithData()){
-    //   let homeItemData :HomeItemData[]=[]
-    //
-    //   return Promise.resolve(homeItemData)
-    // }
-    // else {
-    //   return Promise.reject()
-    // }
+  // const bannerRes = await Api.get().getHomeBanner();
+  // // const recommend =
+  // if (bannerRes.isSuccessWithData()){
+  //   let homeItemData :HomeItemData[]=[]
+  //
+  //   return Promise.resolve(homeItemData)
+  // }
+  // else {
+  //   return Promise.reject()
+  // }
 
 
   // }
@@ -51,28 +51,64 @@ export struct Home {
     Scroll() {
       Column() {
         BannerComponent()
-        Column(){
-          Text('推荐')
-            .width('100%')
-            .fontColor($r("app.color.text_h1"))
-            .fontSize($r('app.float.float_16'))
-            .maxLines(1)
-          Row(){
-            Column(){
+        Row() {
+          Column() {
+            Image($r("app.media.remen"))
+              .objectFit(ImageFit.Cover)
+              .width($r("app.float.size_40"))
+              .height($r("app.float.size_40"))
+            Text($r("app.string.popularBlog"))
+              .padding({
+                left: 16,
+                top: 6,
+                right: 16,
+                bottom: 6
+              })
+              .fontColor($r("app.color.white"))
+              .fontSize(15)
+              .maxLines(1)
+          }
+          .layoutWeight(1)
+          .justifyContent(FlexAlign.Center)
+          .borderRadius($r("app.float.size_12"))
+          .backgroundColor($r("app.color.green"))
+          .padding({
+            top: $r("app.float.size_12"),
+            bottom: $r("app.float.size_12")
+          })
 
-            }.layoutWeight(1).height(100).backgroundColor($r('app.color.red'))
-            Column(){
-
-            }.layoutWeight(1).height(100).backgroundColor($r('app.color.green'))
-          }.width('100%')
+          Column() {
+            Image($r("app.media.wenti"))
+              .objectFit(ImageFit.Cover)
+              .width($r("app.float.size_40"))
+              .height($r("app.float.size_40"))
+            Text($r("app.string.dailyAsk"))
+              .padding({
+                left: 16,
+                top: 6,
+                right: 16,
+                bottom: 6
+              })
+              .fontColor($r("app.color.white"))
+              .fontSize(15)
+              .maxLines(1)
+          }
+          .layoutWeight(1)
+          .justifyContent(FlexAlign.Center)
+          .borderRadius($r("app.float.size_12"))
+          .backgroundColor($r("app.color.blue"))
+          .padding({
+            top: $r("app.float.size_12"),
+            bottom: $r("app.float.size_12")
+          })
+          .margin({
+            left: $r("app.float.size_16")
+          })
         }.width('100%')
         .padding({
-          left: $r('app.float.size_16'),
-          top: $r('app.float.size_6'),
-          right: $r('app.float.size_16'),
-          bottom: $r('app.float.size_6')
+          left: $r("app.float.size_16"),
+          right: $r("app.float.size_16"),
         })
-
 
 
         List() {
@@ -100,13 +136,10 @@ export struct Home {
     .width('100%')
     .height('100%')
   }
-
-
-
 }
 
 @Component
-struct BannerComponent{
+struct BannerComponent {
   private swiperController: SwiperController = new SwiperController()
   @State private bannerPosition: number = 0
   bannerList: HomeBannerData[] = []
@@ -132,6 +165,7 @@ struct BannerComponent{
     .width('100%')
     .height(220)
   }
+
   @Builder
   private bannerItemBuilder(data: HomeBannerData) {
     Stack({ alignContent: Alignment.Bottom }) {

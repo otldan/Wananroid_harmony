@@ -35,6 +35,15 @@
     {
       "name": "mine",
       "value": "我的"
+    },{
+      "name": "recommend",
+      "value":"推荐"
+    },{
+      "name": "popularBlog",
+      "value":"热门博文"
+    },{
+      "name": "dailyAsk",
+      "value":"每日一问"
     }
   ]
 }
