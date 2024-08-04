@@ -15,42 +15,46 @@ export struct Home {
 
   aboutToAppear(): void {
     Logger.info("首页 aboutToAppear")
-
+    this.loadData()
   }
 
   async loadData() {
     this.loadState = LoadState.LOADING
-    // this.loadDataByPage().then((data) => {
-    //   this.data = data;
-    //   if (this.data.length === 0) {
-    //     this.loadState = LoadState.EMPTY;
-    //   } else {
-    //     this.loadState = LoadState.SUCCESS;
-    //   }
-    // }, () => {
-    //   this.loadState = LoadState.FAIL
-    // })
+    this.loadDataByPage().then((data) => {
+      this.data = data;
+      if (this.data.length === 0) {
+        this.loadState = LoadState.EMPTY;
+      } else {
+        this.loadState = LoadState.SUCCESS;
+      }
+    }, () => {
+      this.loadState = LoadState.FAIL
+    })
   }
 
-  // async loadDataByPage(): Promise<HomeItemData[]> {
-  // const bannerRes = await Api.get().getHomeBanner();
-  // // const recommend =
-  // if (bannerRes.isSuccessWithData()){
-  //   let homeItemData :HomeItemData[]=[]
-  //
-  //   return Promise.resolve(homeItemData)
-  // }
-  // else {
-  //   return Promise.reject()
-  // }
+  async loadDataByPage(): Promise<HomeItemData[]> {
+  const bannerRes = await Api.get().getHomeBanner();
+  // const recommend =
+  if (bannerRes.isSuccessWithData()){
+    let homeItemData :HomeItemData[]=[]
+    homeItemData.push(bannerRes.data as HomeBannerData[])
+    return Promise.resolve(homeItemData)
+  }
+  else {
+    return Promise.reject()
+  }
 
 
-  // }
+  }
 
   build() {
     Scroll() {
       Column() {
-        BannerComponent()
+        if (this.data.length > 0){
+          BannerComponent({bannerList:this.data[0] as HomeBannerData[]})
+        }else {//占位
+          Blank().width('100%').height(220)
+        }
         Row() {
           Column() {
             Image($r("app.media.remen"))
@@ -102,12 +106,13 @@ export struct Home {
             bottom: $r("app.float.size_12")
           })
           .margin({
-            left: $r("app.float.size_16")
+            left: $r("app.float.size_16"),
           })
         }.width('100%')
         .padding({
           left: $r("app.float.size_16"),
           right: $r("app.float.size_16"),
+          top:$r("app.float.size_16")
         })
 
 
