@@ -40,8 +40,8 @@ export struct Home {
     if (bannerRes.isSuccessWithData()) {
       let homeItemData: HomeItemData[] = []
       homeItemData.push(bannerRes.data as HomeBannerData[])
-      homeItemData.push(popularColumn.data as PopularColumn[])
-      homeItemData.push(popularWenDa.data as PopularWenDa[])
+      homeItemData.push(popularColumn.data as PopularWenDa[])
+      homeItemData.push(popularWenDa.data as PopularColumn[])
       return Promise.resolve(homeItemData)
     } else {
       return Promise.reject()

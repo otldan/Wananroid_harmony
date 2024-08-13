@@ -53,7 +53,7 @@ async function requestSync<T>(path: string, method: http.RequestMethod, extraDat
       },
       (err, data) => {
         const res = new Response<T>()
-        if (!err && data.responseCode === 200) {
+        if (!err && (data.responseCode === 200 )) {
           cookieJar.saveFromResponse(uri, CookieUtils.parseHttpRequestCookies(data.cookies))
           if (data.resultType === http.HttpDataType.STRING) {
             const result: Response<T> = JSON.parse(data.result);
@@ -167,11 +167,11 @@ export default class Api {
     return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET)
   }
 
-  async getHomePopularColumn(): Promise<Response<PopularColumn[]>> {//专栏
+  async getHomePopularColumn(): Promise<Response<PopularWenDa[]>> {//专栏
     return requestSync("/popular/column/json", http.RequestMethod.GET);
   }
 
-  async getHomePopularWenDa(): Promise<Response<PopularWenDa[]>> {//问答
+  async getHomePopularWenDa(): Promise<Response<PopularColumn[]>> {//问答
     return requestSync("/popular/wenda/json", http.RequestMethod.GET);
   }
 }
