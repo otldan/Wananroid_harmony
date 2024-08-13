@@ -12,6 +12,8 @@ import { HotKey } from '../model/Search';
 import { WeChatAuthor } from '../model/WeChat';
 import { Tree } from '../model/Tree';
 import JSON from '@ohmos/json-bigint';
+import { PopularWenDa } from '../model/PopularWenDa';
+import { PopularColumn } from '../model/PopularColumn';
 
 const TAG = "Api";
 const BASE_URL: string = "https://www.wanandroid.com";
@@ -163,5 +165,13 @@ export default class Api {
 
   async getTreeArticleList(cid: number, page: number): Promise<Response<ArticleList>> {
     return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET)
+  }
+
+  async getHomePopularColumn(): Promise<Response<PopularColumn[]>> {//专栏
+    return requestSync("/popular/column/json", http.RequestMethod.GET);
+  }
+
+  async getHomePopularWenDa(): Promise<Response<PopularWenDa[]>> {//问答
+    return requestSync("/popular/wenda/json", http.RequestMethod.GET);
   }
 }

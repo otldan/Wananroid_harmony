@@ -2,16 +2,17 @@ import { HomeBannerData } from '../model/Article';
 import { Logger } from '../utils/LogUtils'
 import { LoadState } from '../widgets/PageLoading';
 import Api from '../net/Api'
-import { Popular } from '../model/Popular';
-import { recommend } from '../model/Recommend'
 import { router } from '@kit.ArkUI';
+import { PopularColumn } from '../model/PopularColumn';
+import { PopularWenDa } from '../model/PopularWenDa';
 
-declare type HomeItemData = HomeBannerData[] | Popular
+declare type HomeItemData =HomeBannerData[] | PopularColumn[] | PopularWenDa[]
 
 @Component
 export struct Home {
   @State loadState: LoadState = LoadState.LOADING;
   @State data: HomeItemData[] = [];
+  @State bannerData: HomeBannerData[] = []
 
   aboutToAppear(): void {
     Logger.info("首页 aboutToAppear")
@@ -33,16 +34,18 @@ export struct Home {
   }
 
   async loadDataByPage(): Promise<HomeItemData[]> {
-  const bannerRes = await Api.get().getHomeBanner();
-  // const recommend =
-  if (bannerRes.isSuccessWithData()){
-    let homeItemData :HomeItemData[]=[]
-    homeItemData.push(bannerRes.data as HomeBannerData[])
-    return Promise.resolve(homeItemData)
-  }
-  else {
-    return Promise.reject()
-  }
+    const bannerRes = await Api.get().getHomeBanner();
+    const popularColumn = await Api.get().getHomePopularColumn()
+    const popularWenDa = await Api.get().getHomePopularWenDa()
+    if (bannerRes.isSuccessWithData()) {
+      let homeItemData: HomeItemData[] = []
+      homeItemData.push(bannerRes.data as HomeBannerData[])
+      homeItemData.push(popularColumn.data as PopularColumn[])
+      homeItemData.push(popularWenDa.data as PopularWenDa[])
+      return Promise.resolve(homeItemData)
+    } else {
+      return Promise.reject()
+    }
 
 
   }
@@ -50,9 +53,9 @@ export struct Home {
   build() {
     Scroll() {
       Column() {
-        if (this.data.length > 0){
-          BannerComponent({bannerList:this.data[0] as HomeBannerData[]})
-        }else {//占位
+        if (this.data.length > 0) {
+          BannerComponent({ bannerList: this.data[0] as HomeBannerData[] })
+        } else { //占位
           Blank().width('100%').height(220)
         }
         Row() {
@@ -112,34 +115,67 @@ export struct Home {
         .padding({
           left: $r("app.float.size_16"),
           right: $r("app.float.size_16"),
-          top:$r("app.float.size_16")
+          top: $r("app.float.size_16")
         })
 
-
-        List() {
-          ForEach(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], (item: string) => {
-            ListItem() {
-              Text(item)
-                .fontSize(50)
-                .height(150)
+        ForEach(this.data,(item:HomeItemData)=>{
+          List() {
+            if (item as PopularColumn[]){
+              ForEach(item, (item: string) => {
+                ListItem() {
+                  Text("1")
+                    .fontSize(50)
+                    .height(150)
+                }
+              }, (item: string) => item)
+            }else if (item as PopularWenDa[]){
+              ForEach(item, (item: string) => {
+                ListItem() {
+                  Text("2")
+                    .fontSize(50)
+                    .height(150)
+                }
+              }, (item: string) => item)
             }
-          }, (item: string) => item)
-        }
-        .nestedScroll({
-          scrollForward: NestedScrollMode.PARENT_FIRST,
-          scrollBackward: NestedScrollMode.SELF_FIRST
+          }
+          .nestedScroll({
+            scrollForward: NestedScrollMode.PARENT_FIRST,
+            scrollBackward: NestedScrollMode.SELF_FIRST
+          })
+          .divider({
+            strokeWidth: 1,
+            color: Color.Gray
+          })
+          .edgeEffect(EdgeEffect.None)
+          .height('100%')
+          .width('100%')
         })
-        .divider({
-          strokeWidth: 1,
-          color: Color.Gray
-        })
-        .edgeEffect(EdgeEffect.None)
-        .height('100%')
-        .width('100%')
+        // List() {
+        //   ForEach(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], (item: string) => {
+        //     ListItem() {
+        //       Text(item)
+        //         .fontSize(50)
+        //         .height(150)
+        //     }
+        //   }, (item: string) => item)
+        // }
+        // .nestedScroll({
+        //   scrollForward: çNestedScrollMode.PARENT_FIRST,
+        //   scrollBackward: NestedScrollMode.SELF_FIRST
+        // })
+        // .divider({
+        //   strokeWidth: 1,
+        //   color: Color.Gray
+        // })
+        // .edgeEffect(EdgeEffect.None)
+        // .height('100%')
+        // .width('100%')
+
       }
     }
     .width('100%')
     .height('100%')
+
   }
 }
 
