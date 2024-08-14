@@ -5,8 +5,9 @@ import Api from '../net/Api'
 import { router } from '@kit.ArkUI';
 import { PopularColumn } from '../model/PopularColumn';
 import { PopularWenDa } from '../model/PopularWenDa';
+import { it } from '@ohos/hypium';
 
-declare type HomeItemData =HomeBannerData[] | PopularColumn[] | PopularWenDa[]
+declare type HomeItemData = HomeBannerData[] | PopularColumn[] | PopularWenDa[]
 
 @Component
 export struct Home {
@@ -118,64 +119,46 @@ export struct Home {
           top: $r("app.float.size_16")
         })
 
-        ForEach(this.data,(item:HomeItemData)=>{
-          List() {
-            if (item as PopularColumn[]){
-              ForEach(item, (item: string) => {
-                ListItem() {
-                  Text("1")
-                    .fontSize(50)
-                    .height(150)
-                }
-              }, (item: string) => item)
-            }else if (item as PopularWenDa[]){
-              ForEach(item, (item: string) => {
-                ListItem() {
-                  Text("2")
-                    .fontSize(50)
-                    .height(150)
-                }
-              }, (item: string) => item)
+
+        List() {
+          ForEach(this.data[1], (item: PopularWenDa) => {
+            ListItem() {
+              Text(item.name)
+                .fontSize(30)
+                .height(150)
             }
-          }
-          .nestedScroll({
-            scrollForward: NestedScrollMode.PARENT_FIRST,
-            scrollBackward: NestedScrollMode.SELF_FIRST
-          })
-          .divider({
-            strokeWidth: 1,
-            color: Color.Gray
-          })
-          .edgeEffect(EdgeEffect.None)
-          .height('100%')
-          .width('100%')
+          }, (item: PopularWenDa) => item.name)
+
+          ForEach(this.data[2], (item: PopularColumn) => {
+            ListItem() {
+              Text(item.title)
+                .fontSize(50)
+
+            }
+          }, (item: PopularColumn) => item.title)
+
+        }
+        .nestedScroll({
+          scrollForward: NestedScrollMode.PARENT_FIRST,
+          scrollBackward: NestedScrollMode.SELF_FIRST
         })
-        // List() {
-        //   ForEach(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], (item: string) => {
-        //     ListItem() {
-        //       Text(item)
-        //         .fontSize(50)
-        //         .height(150)
-        //     }
-        //   }, (item: string) => item)
-        // }
-        // .nestedScroll({
-        //   scrollForward: çNestedScrollMode.PARENT_FIRST,
-        //   scrollBackward: NestedScrollMode.SELF_FIRST
-        // })
-        // .divider({
-        //   strokeWidth: 1,
-        //   color: Color.Gray
-        // })
-        // .edgeEffect(EdgeEffect.None)
-        // .height('100%')
-        // .width('100%')
+        .divider({
+          strokeWidth: 1,
+          color: Color.Gray
+        })
+        .edgeEffect(EdgeEffect.None)
+        .height('100%')
+        .width('100%')
 
       }
     }
-    .width('100%')
-    .height('100%')
 
+    .width
+    ('100%'
+    )
+    .height
+    ('100%'
+    )
   }
 }
 
