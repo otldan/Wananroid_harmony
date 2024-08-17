@@ -115,67 +115,11 @@ export struct Home {
             top: $r("app.float.size_24")
           })
 
-
-          // List() {
-          //   }
-          // .nestedScroll({
-          //   scrollForward: NestedScrollMode.PARENT_FIRST,
-          //   scrollBackward: NestedScrollMode.SELF_FIRST
-          // })
-          // .edgeEffect(EdgeEffect.None)
-          // .width('100%')
-          // .padding({ top: $r('app.float.size_18'), bottom: $r('app.float.size_18') })
-
-          //   }
-          // }.scrollBar(BarState.Off)
-          // .width('100%')
-          // .height('100%')
         }
 
       }
 
-      ListItem() {
-        Row() {
-          Divider()
-            .width($r('app.float.size_5'))
-            .strokeWidth(5)
-            .vertical(true)
-            .height($r('app.float.size_16'))
-            .lineCap(LineCapStyle.Round)
-            .color($r('app.color.main'))
-          Text($r('app.string.answers'))
-            .margin({
-              left: $r('app.float.size_5')
-            })
-            .fontSize($r('app.float.float_18'))
-            .fontColor($r('app.color.black'))
-        }.width('100%').margin({
-          left: $r('app.float.size_10')
-        })
-      }.height($r('app.float.size_40')).width('100%').margin({ top: $r('app.float.size_24') })
-
-      ForEach(this.data[2], (item: PopularColumn) => {
-        ListItem() {
-          Column() {
-            Text(item.title)
-              .fontSize($r('app.float.float_16'))
-              .fontColor($r('app.color.black'))
-              .padding({
-                top: $r('app.float.size_10'),
-                bottom: $r('app.float.size_10'),
-                left: $r('app.float.size_10')
-              }).width('100%')
-            Divider()
-              .width('100%')
-              .strokeWidth(5)
-              .vertical(false)
-              .height($r('app.float.size_16'))
-              .lineCap(LineCapStyle.Round)
-              .color($r('app.color.line_1'))
-          }
-        }
-      }, (item: PopularColumn) => item.title)
-
+      //专栏
       ListItem() { //问答跳转到https://www.wanandroid.com/wenda/list/1/json
         Row() {
           Divider()
@@ -227,6 +171,51 @@ export struct Home {
           left: $r('app.float.size_10')
         })
       }, (item: PopularWenDa) => item.name)
+
+      //问答
+      ListItem() {//https://www.wanandroid.com/wenda/list/1/json 跳转
+        Row() {
+          Divider()
+            .width($r('app.float.size_5'))
+            .strokeWidth(5)
+            .vertical(true)
+            .height($r('app.float.size_16'))
+            .lineCap(LineCapStyle.Round)
+            .color($r('app.color.main'))
+          Text($r('app.string.answers'))
+            .margin({
+              left: $r('app.float.size_5')
+            })
+            .fontSize($r('app.float.float_18'))
+            .fontColor($r('app.color.black'))
+        }.width('100%').margin({
+          left: $r('app.float.size_10')
+        })
+      }.height($r('app.float.size_40')).width('100%').margin({ top: $r('app.float.size_24') })
+
+      ForEach(this.data[2], (item: PopularColumn) => {
+        ListItem() {
+          Column() {
+            Text(item.title)
+              .fontSize($r('app.float.float_16'))
+              .fontColor($r('app.color.black'))
+              .padding({
+                top: $r('app.float.size_10'),
+                bottom: $r('app.float.size_10'),
+                left: $r('app.float.size_10')
+              }).width('100%')
+            Divider()
+              .width('100%')
+              .strokeWidth(5)
+              .vertical(false)
+              .height($r('app.float.size_16'))
+              .lineCap(LineCapStyle.Round)
+              .color($r('app.color.line_1'))
+          }
+        }
+      }, (item: PopularColumn) => item.title)
+
+
       ListItem().height($r('app.float.size_24'))
     }
     .nestedScroll({
