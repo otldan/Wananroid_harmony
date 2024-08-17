@@ -44,6 +44,13 @@
     },{
       "name": "dailyAsk",
       "value":"每日一问"
+    },{
+      "name": "answers",
+      "value":"问答"
+    },{
+      "name": "special",
+      "value":"专栏"
     }
+
   ]
 }

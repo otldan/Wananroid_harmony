@@ -9,6 +9,10 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "black",
+      "value": "#000000"
+    },
+    {
       "name": "translucent_black_40",
       "value": "#66000000"
     },
@@ -29,6 +33,10 @@
       "value": "#757575"
     },
     {
+      "name": "line_1",
+      "value": "#FFEAEAEA"
+    },
+    {
       "name": "divider",
       "value": "#EEEEEE"
     },
@@ -47,6 +55,14 @@
     {
       "name": "red",
       "value": "#F44336"
+    },
+    {
+      "name": "orange",
+      "value": "#FFF5690B"
+    },
+    {
+      "name": "yellow",
+      "value": "#FFE3A539"
     },
     {
       "name": "blue",
