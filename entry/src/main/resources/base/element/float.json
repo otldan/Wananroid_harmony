@@ -21,6 +21,10 @@
       "value": "12vp"
     },
     {
+      "name": "size_14",
+      "value": "14vp"
+    },
+    {
       "name": "size_16",
       "value": "16vp"
     },
@@ -45,12 +49,24 @@
       "value": "90vp"
     },
     {
+      "name": "size_48",
+      "value": "48vp"
+    },
+    {
+      "name": "size_120",
+      "value": "120vp"
+    },
+    {
       "name": "float_16",
       "value": "16fp"
     },
     {
       "name": "float_18",
       "value": "18fp"
+    },
+    {
+      "name": "float_20",
+      "value": "20fp"
     }
   ]
 }

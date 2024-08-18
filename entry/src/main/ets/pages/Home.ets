@@ -5,6 +5,7 @@ import Api from '../net/Api'
 import { router } from '@kit.ArkUI';
 import { PopularColumn } from '../model/PopularColumn';
 import { PopularWenDa } from '../model/PopularWenDa';
+import  {PAGE_WEB }  from '../common/Constant'
 
 declare type HomeItemData = HomeBannerData[] | PopularColumn[] | PopularWenDa[]
 
@@ -17,6 +18,16 @@ export struct Home {
   aboutToAppear(): void {
     Logger.info("首页 aboutToAppear")
     this.loadData()
+  }
+
+  jumpWebPage(url:string,title:string){
+    router.pushUrl({
+      url: PAGE_WEB,
+      params: {
+        url: url,
+        title:title
+      }
+    });
   }
 
   async loadData() {
@@ -120,7 +131,7 @@ export struct Home {
       }
 
       //专栏
-      ListItem() { //问答跳转到https://www.wanandroid.com/wenda/list/1/json
+      ListItem() { //https://www.wanandroid.com/article/list/0/json?cid=231  === subChapterId
         Row() {
           Divider()
             .width($r('app.float.size_5'))
@@ -135,6 +146,13 @@ export struct Home {
             })
             .fontSize($r('app.float.float_18'))
             .fontColor($r('app.color.black'))
+          Image($r('app.media.hot'))
+            .objectFit(ImageFit.Contain)
+            .height($r('app.float.size_24'))
+            .width($r('app.float.size_24'))
+            .margin({
+              left:$r('app.float.size_6')
+            })
         }.width('100%')
       }.height($r('app.float.size_40')).width('100%')
       .margin({
@@ -188,6 +206,14 @@ export struct Home {
             })
             .fontSize($r('app.float.float_18'))
             .fontColor($r('app.color.black'))
+
+          Image($r('app.media.hot'))
+            .objectFit(ImageFit.Contain)
+            .height($r('app.float.size_24'))
+            .width($r('app.float.size_24'))
+            .margin({
+              left:$r('app.float.size_6')
+            })
         }.width('100%').margin({
           left: $r('app.float.size_10')
         })
@@ -212,7 +238,9 @@ export struct Home {
               .lineCap(LineCapStyle.Round)
               .color($r('app.color.line_1'))
           }
-        }
+        }.onClick(()=>{
+          jumpWebPage(item.link,item.title)
+        })
       }, (item: PopularColumn) => item.title)
 
 
@@ -222,11 +250,14 @@ export struct Home {
       scrollForward: NestedScrollMode.PARENT_FIRST,
       scrollBackward: NestedScrollMode.SELF_FIRST
     })
+    .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.None)
     .width('100%')
     .height('100%')
     .padding({ top: $r('app.float.size_18') })
+
   }
+
 
   getTextColor(index: number): ResourceStr {
     if (index === 0) {
@@ -296,12 +327,20 @@ struct BannerComponent {
     .width('100%')
     .height('100%')
     .onClick((event) => {
-      router.pushUrl({
-        url: 'pages/WebPage',
-        params: {
-          url: data.url
-        }
-      });
+      jumpWebPage(data.url,data.title)
     })
   }
+
+
+}
+
+
+function jumpWebPage(url:string,title:string){
+  router.pushUrl({
+    url: PAGE_WEB,
+    params: {
+      url: url,
+      title:title
+    }
+  });
 }

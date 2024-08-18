@@ -23,7 +23,12 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+
+      // 设置全窗颜色和应用元素颜色一致
+      // windowStage.getMainWindowSync().setWindowBackgroundColor('#FAFAFA');
     });
+
+
   }
 
   onWindowStageDestroy(): void {

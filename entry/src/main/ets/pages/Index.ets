@@ -33,7 +33,7 @@ struct Index {
       .scrollable(false)
       .layoutWeight(1)
       .animationDuration(0)
-      .backgroundColor($r("app.color.start_window_background"))
+
 
     }
   }
@@ -53,7 +53,6 @@ struct Index {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor($r("app.color.navi_bar_bg"))
     .justifyContent(FlexAlign.Center)
     .onClick(() => {
       this.currentIndex = targetIndex
