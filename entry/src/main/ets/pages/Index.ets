@@ -1,4 +1,5 @@
 import { Home } from './Home'
+import { SquarePage } from './SquarePage'
 
 @Entry
 @Component
@@ -14,13 +15,13 @@ struct Index {
           Home()
         }.tabBar(this.tabBuilder($r('app.string.home'), 0, $r("app.media.ic_tab_home_select"), $r("app.media.ic_tab_home")))
 
-        TabContent() {
-          // Square()
-        }.tabBar(this.tabBuilder($r('app.string.featured'), 1, $r("app.media.ic_tab_featured_select"), $r("app.media.ic_tab_featured")))
 
         TabContent() {
-          // TreeTab()
+          SquarePage()
         }.tabBar(this.tabBuilder($r('app.string.square'), 2, $r("app.media.ic_tab_square_select"), $r("app.media.ic_tab_square")))
+        TabContent() {
+          SquarePage()
+        }.tabBar(this.tabBuilder($r('app.string.featured'), 1, $r("app.media.ic_tab_featured_select"), $r("app.media.ic_tab_featured")))
 
         TabContent() {
           // Wechat()
@@ -60,3 +61,4 @@ struct Index {
     })
   }
 }
+

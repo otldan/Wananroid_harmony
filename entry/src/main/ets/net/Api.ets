@@ -14,6 +14,8 @@ import { Tree } from '../model/Tree';
 import JSON from '@ohmos/json-bigint';
 import { PopularWenDa } from '../model/PopularWenDa';
 import { PopularColumn } from '../model/PopularColumn';
+import { ArticleItem } from '../pages/ArticleItem';
+import { ArticleItemBean, ArticleItemList } from '../model/ArtcleItemBean';
 
 const TAG = "Api";
 const BASE_URL: string = "https://www.wanandroid.com";
@@ -174,4 +176,10 @@ export default class Api {
   async getHomePopularWenDa(): Promise<Response<PopularColumn[]>> {//问答
     return requestSync("/popular/wenda/json", http.RequestMethod.GET);
   }
+
+  async getPopularItemList(cid: number, page: number): Promise<Response<ArticleItemList>> {
+  //单个专栏列表   https://www.wanandroid.com/article/list/0/json?cid=231
+    return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET);
+  }
+
 }

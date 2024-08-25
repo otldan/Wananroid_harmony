@@ -5,7 +5,10 @@ import Api from '../net/Api'
 import { router } from '@kit.ArkUI';
 import { PopularColumn } from '../model/PopularColumn';
 import { PopularWenDa } from '../model/PopularWenDa';
-import  {PAGE_WEB }  from '../common/Constant'
+import  {PAGE_WEB,POPULAR_LIST }  from '../common/Constant'
+import { ArticleItem } from './ArticleItem';
+import { ArticleItemBean } from '../model/ArtcleItemBean';
+import {RouterUtils} from '../utils/RouterUtils'
 
 declare type HomeItemData = HomeBannerData[] | PopularColumn[] | PopularWenDa[]
 
@@ -14,7 +17,43 @@ export struct Home {
   @State loadState: LoadState = LoadState.LOADING;
   @State data: HomeItemData[] = [];
   @State bannerData: HomeBannerData[] = []
-
+  articleBean:ArticleItemBean = {
+    adminAdd: false,
+    apkLink: '',
+    audit: 0,
+    author: '',
+    canEdit: false,
+    chapterId: 0,
+    chapterName: '入门及知识点',
+    collect: false,
+    courseId: 0,
+    desc: '',
+    descMd: '',
+    envelopePic: '',
+    fresh: false,
+    host: '',
+    id: 0,
+    isAdminAdd: false,
+    link: '',
+    niceDate: '2022-02-09 20:31',
+    niceShareDate: '2022-02-09 20:31',
+    origin: '',
+    prefix: '',
+    projectLink: '',
+    publishTime: 0,
+    realSuperChapterId: 0,
+    selfVisible: 0,
+    shareDate: 0,
+    shareUser: '鸿洋',
+    superChapterId: 0,
+    superChapterName: 'Kotlin',
+    tags: [],
+    title: 'Kotlin反射全解析3 -- 大展身手的KProperty',
+    type: 0,
+    userId: 0,
+    visible: 0,
+    zan: 0
+  }
   aboutToAppear(): void {
     Logger.info("首页 aboutToAppear")
     this.loadData()
@@ -184,9 +223,18 @@ export struct Home {
           }
           .padding({
             top: $r('app.float.size_10'),
+            bottom:$r('app.float.size_10'),
           })
         }.margin({
           left: $r('app.float.size_10')
+        }).onClick(()=>{
+          router.pushUrl({
+            url: POPULAR_LIST,
+            params: {
+              cid: item.subChapterId,
+              title:item.name
+            }
+          });
         })
       }, (item: PopularWenDa) => item.name)
 
@@ -217,7 +265,7 @@ export struct Home {
         }.width('100%').margin({
           left: $r('app.float.size_10')
         })
-      }.height($r('app.float.size_40')).width('100%').margin({ top: $r('app.float.size_24') })
+      }.height($r('app.float.size_40')).width('100%').margin({ top: $r('app.float.size_14') })
 
       ForEach(this.data[2], (item: PopularColumn) => {
         ListItem() {
@@ -239,10 +287,9 @@ export struct Home {
               .color($r('app.color.line_1'))
           }
         }.onClick(()=>{
-          jumpWebPage(item.link,item.title)
+          RouterUtils.jumpWebPage(item.link,item.title)
         })
       }, (item: PopularColumn) => item.title)
-
 
       ListItem().height($r('app.float.size_24'))
     }
@@ -327,20 +374,10 @@ struct BannerComponent {
     .width('100%')
     .height('100%')
     .onClick((event) => {
-      jumpWebPage(data.url,data.title)
+      RouterUtils.jumpWebPage(data.url,data.title)
     })
   }
 
 
 }
 
-
-function jumpWebPage(url:string,title:string){
-  router.pushUrl({
-    url: PAGE_WEB,
-    params: {
-      url: url,
-      title:title
-    }
-  });
-}

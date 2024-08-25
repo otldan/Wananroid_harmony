@@ -10,7 +10,7 @@ export struct PageLoading{
   @Prop loadState: LoadState
   onReload?: () => void
   @Prop showLoading: boolean
-  @BuilderParam content: () => void
+  @BuilderParam content: () => void //显示列表界面
 
   build() {
     Stack() {

@@ -12,9 +12,9 @@ export struct TitleView {
 
   build() {
     Column() {
-      Row()
-        .width('100%')
-        .height(WindowUtils.statusBarHeight + 'px')
+      // Row()
+      //   .width('100%')
+      //   .height(WindowUtils.statusBarHeight + 'px')
       Row() {
         if (this.showBack) {
           Image($r("app.media.ic_back"))

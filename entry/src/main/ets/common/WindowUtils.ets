@@ -1,4 +1,5 @@
 import window from '@ohos.window';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export default class WindowUtils{
 
@@ -11,6 +12,7 @@ export default class WindowUtils{
     const windowRect = windowClass.getWindowProperties().windowRect;
     WindowUtils.windowWidth = windowRect.width;
     WindowUtils.windowHeight = windowRect.height;
+    hilog.info(0x0000, 'WindowUtils.windowWidth', '%{public}s', WindowUtils.windowWidth+" === ");
     const statusBarAvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
     WindowUtils.statusBarHeight = statusBarAvoidArea.topRect.height;
     const navigationBarAvoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR);

@@ -50,7 +50,36 @@
     },{
       "name": "special",
       "value":"专栏"
+    },{
+      "name": "shareUser",
+      "value":"作者:"
+    },
+    {
+      "name": "sort",
+      "value":"分类:"
+    },
+    {
+      "name": "createTime",
+      "value":"时间:"
+    },
+    {
+      "name": "interview",
+      "value":"面试"
+    },
+    {
+      "name": "performance",
+      "value":"性能"
+    },{
+      "name": "framework",
+      "value":"framework"
+    },{
+      "name": "openSourceLibrary",
+      "value":"开源库"
+    },{
+      "name": "manufacturers",
+      "value":"大厂"
     }
+
 
   ]
 }

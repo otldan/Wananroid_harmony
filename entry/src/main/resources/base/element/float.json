@@ -13,6 +13,10 @@
       "value": "6vp"
     },
     {
+      "name": "size_8",
+      "value": "8vp"
+    },
+    {
       "name": "size_10",
       "value": "10vp"
     },
@@ -45,12 +49,28 @@
       "value": "30vp"
     },
     {
+      "name": "size_76",
+      "value": "76vp"
+    },
+    {
       "name": "size_90",
       "value": "90vp"
     },
     {
       "name": "size_48",
       "value": "48vp"
+    },
+    {
+      "name": "size_44",
+      "value": "44vp"
+    },
+    {
+      "name": "size_55",
+      "value": "55vp"
+    },
+    {
+      "name": "size_60",
+      "value": "60vp"
     },
     {
       "name": "size_120",
@@ -67,6 +87,14 @@
     {
       "name": "float_20",
       "value": "20fp"
+    },
+    {
+      "name": "float_14",
+      "value": "14fp"
+    },
+    {
+      "name": "size_36",
+      "value": "36vp"
     }
   ]
 }
