@@ -1,6 +1,6 @@
-import { getTabList, SquareTab } from '../model/SquareBean'
-import { StringUtils } from '../utils/StringUtils'
-import { TitleView } from '../widgets/TitleView'
+import { getTabList, SquareTab } from '../../model/SquareBean'
+import { StringUtils } from '../../utils/StringUtils'
+import { TitleView } from '../../widgets/TitleView'
 
 //广场 --- 热门 、问答、面试、性能、framework、开源、大厂分享
 @Component
@@ -17,7 +17,9 @@ export struct SquarePage {
       })
       Tabs({ controller: this.controller }) {
         ForEach(this.squareList, (item: SquareTab,index:number) => {
-          TabContent().tabBar(this.TabBuilder(item.tabName,index))
+          TabContent(){
+            SquareListPage()
+          }.tabBar(this.TabBuilder(item.tabName,index))
 
         })
       }

@@ -78,6 +78,22 @@
     },{
       "name": "manufacturers",
       "value":"大厂"
+    },
+    {
+      "name": "refresh_suc",
+      "value":"刷新成功"
+    },{
+      "name": "refresh_fail",
+      "value":"刷新失败"
+    },{
+      "name": "load_suc",
+      "value":"加载成功"
+    },{
+      "name": "load_fail",
+      "value":"加载失败"
+    },{
+      "name": "load_more",
+      "value":"没有更多了"
     }
 
 

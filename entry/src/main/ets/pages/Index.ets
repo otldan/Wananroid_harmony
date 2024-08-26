@@ -1,5 +1,5 @@
 import { Home } from './Home'
-import { SquarePage } from './SquarePage'
+import { SquarePage } from './square/SquarePage'
 
 @Entry
 @Component

@@ -8,6 +8,7 @@ import { PullToRefresh, PullToRefreshConfigurator } from '@ohos/pulltorefresh'
 import { ArticleItem } from './ArticleItem'
 import { router } from '@kit.ArkUI'
 import { ArtcleParams } from '../model/ArtcleParams'
+import { StringUtils } from '../utils/StringUtils'
 
 
 @Entry
@@ -82,10 +83,10 @@ struct PopularList {
                   (data) => {
                     this.page = 1;
                     this.data = data;
-                    resolve('刷新成功');
+                    resolve(StringUtils.getString($r('app.string.refresh_suc')));
                   },
                   () => {
-                    resolve('刷新失败');
+                    resolve(StringUtils.getString($r('app.string.refresh_fail')));
                   }
                 )
               });
@@ -98,18 +99,18 @@ struct PopularList {
                       if (data.length > 0) {
                         this.page++
                         this.data = this.data.concat(data);
-                        resolve('加载成功');
+                        resolve(StringUtils.getString($r('app.string.load_suc')));
                       } else {
                         this.more = false;
-                        resolve('没有更多了');
+                        resolve(StringUtils.getString($r('app.string.load_more')));
                       }
                     },
                     () => {
-                      resolve('加载失败');
+                      resolve(StringUtils.getString($r('app.string.load_fail')));
                     }
                   )
                 } else {
-                  resolve('没有更多了');
+                  resolve(StringUtils.getString($r('app.string.load_more')));
                 }
               });
             }

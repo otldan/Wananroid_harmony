@@ -6,7 +6,6 @@ import { router } from '@kit.ArkUI';
 import { PopularColumn } from '../model/PopularColumn';
 import { PopularWenDa } from '../model/PopularWenDa';
 import  {PAGE_WEB,POPULAR_LIST }  from '../common/Constant'
-import { ArticleItem } from './ArticleItem';
 import { ArticleItemBean } from '../model/ArtcleItemBean';
 import {RouterUtils} from '../utils/RouterUtils'
 
