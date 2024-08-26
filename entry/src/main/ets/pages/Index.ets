@@ -1,3 +1,4 @@
+import { AccountPage } from './account/AccountPage'
 import { Home } from './Home'
 import { SquarePage } from './square/SquarePage'
 
@@ -24,7 +25,7 @@ struct Index {
         }.tabBar(this.tabBuilder($r('app.string.featured'), 1, $r("app.media.ic_tab_featured_select"), $r("app.media.ic_tab_featured")))
 
         TabContent() {
-          // Wechat()
+          AccountPage()
         }.tabBar(this.tabBuilder($r('app.string.no_public'), 3, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
 
         TabContent() {
