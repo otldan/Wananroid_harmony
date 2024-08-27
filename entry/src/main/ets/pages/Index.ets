@@ -19,18 +19,15 @@ struct Index {
 
         TabContent() {
           SquarePage()
-        }.tabBar(this.tabBuilder($r('app.string.square'), 2, $r("app.media.ic_tab_square_select"), $r("app.media.ic_tab_square")))
-        TabContent() {
-          SquarePage()
-        }.tabBar(this.tabBuilder($r('app.string.featured'), 1, $r("app.media.ic_tab_featured_select"), $r("app.media.ic_tab_featured")))
+        }.tabBar(this.tabBuilder($r('app.string.square'), 1, $r("app.media.ic_tab_square_select"), $r("app.media.ic_tab_square")))
 
         TabContent() {
           AccountPage()
-        }.tabBar(this.tabBuilder($r('app.string.no_public'), 3, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
+        }.tabBar(this.tabBuilder($r('app.string.no_public'), 2, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
 
         TabContent() {
           // Mine()
-        }.tabBar(this.tabBuilder($r('app.string.mine'), 4, $r("app.media.ic_tab_my_select"), $r("app.media.ic_tab_my")))
+        }.tabBar(this.tabBuilder($r('app.string.mine'), 3, $r("app.media.ic_tab_my_select"), $r("app.media.ic_tab_my")))
       }
       .scrollable(false)
       .layoutWeight(1)

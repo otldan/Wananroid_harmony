@@ -1,6 +1,6 @@
 import http from '@ohos.net.http';
 import hilog from '@ohos.hilog';
-import { Article, ArticleList, HomeBannerData } from '../model/Article';
+import {  ArticleList, HomeBannerData } from '../model/Article';
 import { User } from '../user/UserLoginInfo';
 import uri from '@ohos.uri';
 import PersistentCookieJar from './cookie/PersistentCookieJar';
@@ -10,7 +10,6 @@ import CookieUtils from './cookie/CookieUtils';
 import { Response } from '../model/Response';
 import { HotKey } from '../model/Search';
 import { WeChatAuthor } from '../model/WeChat';
-import { Tree } from '../model/Tree';
 import JSON from '@ohmos/json-bigint';
 import { PopularWenDa } from '../model/PopularWenDa';
 import { PopularColumn } from '../model/PopularColumn';
@@ -109,9 +108,9 @@ export default class Api {
     return requestSync(`/article/list/${page}/json`, http.RequestMethod.GET);
   }
 
-  async getTopArticle(): Promise<Response<Article[]>> {
-    return requestSync("/article/top/json", http.RequestMethod.GET);
-  }
+  // async getTopArticle(): Promise<Response<Article[]>> {
+  //   return requestSync("/article/top/json", http.RequestMethod.GET);
+  // }
 
   async getHomeBanner(): Promise<Response<HomeBannerData[]>> {
     return requestSync("/banner/json", http.RequestMethod.GET);
@@ -158,9 +157,9 @@ export default class Api {
     return requestSync(`/lg/collect/list/${page}/json`, http.RequestMethod.GET)
   }
 
-  async getTree(): Promise<Response<Tree[]>> {
-    return requestSync(`/tree/json`, http.RequestMethod.GET)
-  }
+  // async getTree(): Promise<Response<Tree[]>> {
+  //   return requestSync(`/tree/json`, http.RequestMethod.GET)
+  // }
 
   async getSquareArticleList(cid: number, page: number): Promise<Response<ArticleList>> {
     return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET)
