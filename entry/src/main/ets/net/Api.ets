@@ -15,6 +15,7 @@ import { PopularWenDa } from '../model/PopularWenDa';
 import { PopularColumn } from '../model/PopularColumn';
 import { ArticleItem } from '../pages/ArticleItem';
 import { ArticleItemBean, ArticleItemList } from '../model/ArtcleItemBean';
+import { Tree } from '../model/Tree';
 
 const TAG = "Api";
 const BASE_URL: string = "https://www.wanandroid.com";
@@ -108,9 +109,6 @@ export default class Api {
     return requestSync(`/article/list/${page}/json`, http.RequestMethod.GET);
   }
 
-  // async getTopArticle(): Promise<Response<Article[]>> {
-  //   return requestSync("/article/top/json", http.RequestMethod.GET);
-  // }
 
   async getHomeBanner(): Promise<Response<HomeBannerData[]>> {
     return requestSync("/banner/json", http.RequestMethod.GET);
@@ -157,9 +155,13 @@ export default class Api {
     return requestSync(`/lg/collect/list/${page}/json`, http.RequestMethod.GET)
   }
 
-  // async getTree(): Promise<Response<Tree[]>> {
-  //   return requestSync(`/tree/json`, http.RequestMethod.GET)
-  // }
+  async getTree(): Promise<Response<Tree[]>> {
+    return requestSync(`/tree/json`, http.RequestMethod.GET)
+  }
+
+  async getTreeArticleList(cid: number, page: number): Promise<Response<ArticleList>> {
+    return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET)
+  }
 
   async getSquareArticleList(cid: number, page: number): Promise<Response<ArticleList>> {
     return requestSync(`/article/list/${page}/json?cid=${cid}`, http.RequestMethod.GET)
