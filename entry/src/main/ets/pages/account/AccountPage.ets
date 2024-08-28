@@ -3,6 +3,7 @@ import { ArticleItemBean } from '../../model/ArtcleItemBean'
 import { Pair } from '../../model/Pair'
 import { Tree } from '../../model/Tree'
 import Api from '../../net/Api'
+import { Logger } from '../../utils/LogUtils'
 import { StringUtils } from '../../utils/StringUtils'
 import { LoadState, PageLoading } from '../../widgets/PageLoading'
 import { ArticleItem } from '../ArticleItem'
@@ -23,10 +24,13 @@ export struct AccountPage {
   private scroller: Scroller = new Scroller();
   private refreshConfig = new PullToRefreshConfigurator();
 
-  // aboutToAppear(): void {
-  //   this.getTreeData()
-  // }
+  aboutToAppear(): void {
+    this.refreshConfig.setHasRefresh(false)
+    this.getTreeData()
+  }
+
   async getTreeData() {
+    Logger.info("加载广场数据")
     this.loadStateTree = LoadState.LOADING
 
     const res = await Api.get().getTree();
@@ -65,8 +69,9 @@ export struct AccountPage {
 
   private async getArticleDataByPage(page: number): Promise<ArticleItemBean[]> {
     const res = await Api.get().getTreeArticleList(this.selectTrees.second!.id, page);
+    Logger.info("加载广场数据" + JSON.stringify(res))
     if (res.isSuccessWithData()) {
-      const list = res.getDataOrThrow().dataAll;
+      const list = res.getDataOrThrow().datas;
       return Promise.resolve(list);
     } else {
       return Promise.reject();
@@ -75,25 +80,74 @@ export struct AccountPage {
 
   build() {
     SideBarContainer(SideBarContainerType.Overlay) {
+      Column(){
+          Row() {
+            Image($r('app.media.fanhui')).width($r('app.float.size_30')).height($r('app.float.size_30'))
+              .onClick(() => {
+                this.isShowBar = false
+              })
+            Text($r('app.string.special_column'))
+              .fontColor($r('app.color.text_h1'))
+              .fontWeight(700)
+              .fontSize($r('app.float.float_18'))
+              .width('100%')
+              .textAlign(TextAlign.Center)
+              .height('100%')
 
-      Scroll() {
-        Flex({ wrap: FlexWrap.Wrap }) {
-          ForEach(this.treeList, (tree: Tree) => {
-            Text("父类标题"+tree.name)
-            ForEach(tree.children, (childTree: Tree) => {
-              Text(childTree.name)
-            })
+          }.height($r('app.float.size_40'))
+          .margin({
+            top: $r('app.float.size_12'),
+            right: $r('app.float.size_40'),
+            left: $r('app.float.size_12')
           })
-        }
+
+
+        Scroll() {
+          Flex({ wrap: FlexWrap.Wrap }) {
+            ForEach(this.treeList, (tree: Tree, index: number) => {
+              Text(tree.name)
+                .fontColor($r('app.color.text_h1'))
+                .fontWeight(700)
+                .fontSize($r('app.float.float_16'))
+                .margin({
+                  left: $r('app.float.size_12'),
+                  right: $r('app.float.size_12'),
+                  top: $r('app.float.size_12'),
+                  bottom: $r('app.float.size_12')
+                }).width('100%')
+
+              ForEach(tree.children, (childTree: Tree) => {
+                Text(childTree.name)
+                  .fontSize($r('app.float.float_14'))
+                  .fontColor($r('app.color.text_h2'))
+                  .padding({
+                    left: $r('app.float.size_6'),
+                    right: $r('app.float.size_6'),
+                    top: $r('app.float.size_5'),
+                    bottom: $r('app.float.size_5')
+                  })
+                  .margin({
+                    left: $r('app.float.size_12'),
+                    right: $r('app.float.size_12'),
+                    top: $r('app.float.size_6'),
+                    bottom: $r('app.float.size_6')
+                  })
+                  .borderWidth($r('app.float.size_2'))
+                  .borderRadius($r('app.float.size_6'))
+                  .borderColor($r('app.color.text_h2'))
+              })
+            })
+          }
+        }.padding({
+          top: $r('app.float.float_20'),
+          left: $r('app.float.float_14'),
+          right: $r('app.float.float_14'),
+          bottom: $r('app.float.float_20')
+        })
       }.backgroundColor($r('app.color.divider'))
       .borderRadius({
         topLeft: $r('app.float.float_16'),
         bottomLeft: $r('app.float.float_16'),
-      }).padding({
-        top: $r('app.float.float_20'),
-        left: $r('app.float.float_14'),
-        right: $r('app.float.float_14'),
-        bottom: $r('app.float.float_20')
       })
 
       Column() { //内容
@@ -117,7 +171,7 @@ export struct AccountPage {
         }) {
           Column() {
             PullToRefresh({
-              data: $data,
+              data: this.dataList,
               scroller: this.scroller,
               refreshConfigurator: this.refreshConfig,
               customList: () => {
@@ -125,6 +179,7 @@ export struct AccountPage {
               },
               onLoadMore: () => {
                 return new Promise<string>((resolve, reject) => {
+                  Logger.info("是否加载完全部数据" + this.more)
                   if (this.more) {
                     this.getArticleDataByPage(this.page).then(
                       (data) => {
@@ -160,6 +215,7 @@ export struct AccountPage {
         bottom: $r('app.float.float_20')
       })
     }
+    .sideBarWidth('70%')
     .showSideBar(this.isShowBar)
     .sideBarPosition(SideBarPosition.End)
     .showControlButton(false)

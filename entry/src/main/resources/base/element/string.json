@@ -94,6 +94,9 @@
     },{
       "name": "load_more",
       "value":"没有更多了"
+    },{
+      "name": "special_column",
+      "value":"专栏"
     }
 
 

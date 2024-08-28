@@ -1,9 +1,9 @@
 import { hilog } from '@kit.PerformanceAnalysisKit'
 
 class LogUtils {
-  public isShowLog = false
+  public isShowLog = true
   private domain: number
-  private prefix: string
+  private prefix: string = 'ZyOng'
   private format: string = '%{public}s,%{public}s'
 
   constructor(prefix: string) {

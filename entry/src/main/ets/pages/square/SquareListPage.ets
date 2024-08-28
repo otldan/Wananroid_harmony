@@ -40,7 +40,7 @@ export struct SquareListPage {
   private async getPageList(page: number): Promise<ArticleItemBean[]> {
     let data = await Api.get().getSquareArticleList(this.cid, page);
     if (data.isSuccessWithData()) {
-      const list = data.getDataOrThrow().dataAll
+      const list = data.getDataOrThrow().datas
       return Promise.resolve(list)
     } else {
       return Promise.reject()
