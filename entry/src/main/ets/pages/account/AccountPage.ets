@@ -80,26 +80,26 @@ export struct AccountPage {
 
   build() {
     SideBarContainer(SideBarContainerType.Overlay) {
-      Column(){
-          Row() {
-            Image($r('app.media.fanhui')).width($r('app.float.size_30')).height($r('app.float.size_30'))
-              .onClick(() => {
-                this.isShowBar = false
-              })
-            Text($r('app.string.special_column'))
-              .fontColor($r('app.color.text_h1'))
-              .fontWeight(700)
-              .fontSize($r('app.float.float_18'))
-              .width('100%')
-              .textAlign(TextAlign.Center)
-              .height('100%')
+      Column() { //侧边栏
+        Row() {
+          Image($r('app.media.fanhui')).width($r('app.float.size_30')).height($r('app.float.size_30'))
+            .onClick(() => {
+              this.isShowBar = false
+            })
+          Text($r('app.string.special_column'))
+            .fontColor($r('app.color.text_h1'))
+            .fontWeight(700)
+            .fontSize($r('app.float.float_18'))
+            .width('100%')
+            .textAlign(TextAlign.Center)
+            .height('100%')
 
-          }.height($r('app.float.size_40'))
-          .margin({
-            top: $r('app.float.size_12'),
-            right: $r('app.float.size_40'),
-            left: $r('app.float.size_12')
-          })
+        }.height($r('app.float.size_40'))
+        .margin({
+          top: $r('app.float.size_12'),
+          right: $r('app.float.size_40'),
+          left: $r('app.float.size_12')
+        })
 
 
         Scroll() {
@@ -114,12 +114,14 @@ export struct AccountPage {
                   right: $r('app.float.size_12'),
                   top: $r('app.float.size_12'),
                   bottom: $r('app.float.size_12')
-                }).width('100%')
+                })
+                .width('100%')
 
               ForEach(tree.children, (childTree: Tree) => {
                 Text(childTree.name)
                   .fontSize($r('app.float.float_14'))
-                  .fontColor($r('app.color.text_h2'))
+                  .fontColor(this.selectTrees.second?.id == childTree.id ? $r('app.color.main') :
+                  $r('app.color.text_h2'))// .fontColor($r('app.color.text_h2'))
                   .padding({
                     left: $r('app.float.size_6'),
                     right: $r('app.float.size_6'),
@@ -134,7 +136,17 @@ export struct AccountPage {
                   })
                   .borderWidth($r('app.float.size_2'))
                   .borderRadius($r('app.float.size_6'))
-                  .borderColor($r('app.color.text_h2'))
+                  .borderColor(this.selectTrees.second?.id == childTree.id ? $r('app.color.main') :
+                  $r('app.color.text_h2'))
+                  .onClick(()=>{
+                    this.selectTrees = { first: tree, second:childTree };
+                    this.isShowBar = false
+                    this.more =true
+                    this.scroller.scrollToIndex(0);
+                    this.getArticleListData()
+
+                  });
+
               })
             })
           }
@@ -152,7 +164,14 @@ export struct AccountPage {
 
       Column() { //内容
         Row() {
-          Blank()
+          if (this.selectTrees.first != undefined) {
+            Text(this.selectTrees.first?.name + ' > ' + this.selectTrees.second?.name)
+              .fontSize($r('app.float.float_14'))
+              .fontColor($r('app.color.text_h1'))
+              .layoutWeight(1)
+          } else {
+            Blank()
+          }
           Image($r('app.media.gengduo')).onClick(() => {
 
             animateTo({}, () => {

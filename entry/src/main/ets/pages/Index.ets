@@ -23,7 +23,7 @@ struct Index {
 
         TabContent() {
           AccountPage()
-        }.tabBar(this.tabBuilder($r('app.string.no_public'), 2, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
+        }.tabBar(this.tabBuilder($r('app.string.special_column'), 2, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
 
         TabContent() {
           // Mine()
