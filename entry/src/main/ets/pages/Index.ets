@@ -1,5 +1,7 @@
+import { DBUtils } from '../db/utils/DBUtils'
 import { AccountPage } from './account/AccountPage'
 import { Home } from './Home'
+import { Mine } from './Mine'
 import { SquarePage } from './square/SquarePage'
 
 @Entry
@@ -7,18 +9,27 @@ import { SquarePage } from './square/SquarePage'
 struct Index {
   private tabsController = new TabsController()
   @State currentIndex: number = 0
-
+   currentSquareIndex:number = 0
+  private changeIndex =(index:number,position:number)=>{
+    this.currentSquareIndex = position
+    this.currentIndex = index
+    this.tabsController.changeIndex(index)
+  }
+  aboutToAppear(): void {
+  }
   build() {
 
     Column() {
       Tabs({ barPosition: BarPosition.End, controller: this.tabsController }) {
         TabContent() {
-          Home()
+          Home({
+            changeIndex: this.changeIndex
+          })
         }.tabBar(this.tabBuilder($r('app.string.home'), 0, $r("app.media.ic_tab_home_select"), $r("app.media.ic_tab_home")))
 
 
         TabContent() {
-          SquarePage()
+          SquarePage({currentIndex:this.currentSquareIndex})
         }.tabBar(this.tabBuilder($r('app.string.square'), 1, $r("app.media.ic_tab_square_select"), $r("app.media.ic_tab_square")))
 
         TabContent() {
@@ -26,7 +37,7 @@ struct Index {
         }.tabBar(this.tabBuilder($r('app.string.special_column'), 2, $r("app.media.ic_tab_wechat_select"), $r("app.media.ic_tab_wechat")))
 
         TabContent() {
-          // Mine()
+          Mine()
         }.tabBar(this.tabBuilder($r('app.string.mine'), 3, $r("app.media.ic_tab_my_select"), $r("app.media.ic_tab_my")))
       }
       .scrollable(false)
@@ -58,5 +69,7 @@ struct Index {
       this.tabsController.changeIndex(targetIndex)
     })
   }
+
+
 }
 

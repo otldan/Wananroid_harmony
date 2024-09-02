@@ -6,6 +6,7 @@ export struct TitleView {
   @Prop
   title: string;
   showBack: boolean = true;
+  showDriver:boolean = true
   onBack: () => void = () => {
     router.back();
   }
@@ -41,7 +42,10 @@ export struct TitleView {
       .width('100%')
       .height($r('app.float.size_48'))
       .alignItems(VerticalAlign.Center)
-      Divider().vertical(false).strokeWidth(1).color($r('app.color.divider'))
+      if (this.showDriver){
+        Divider().vertical(false).strokeWidth(1).color($r('app.color.divider'))
+
+      }
     }
     .width('100%')
     .backgroundColor($r("app.color.white"))

@@ -102,7 +102,7 @@
       "value":"我的积分"
     },{
       "name": "collect",
-      "value":"我的收藏"
+      "value":"浏览记录"
     },
     {
       "name": "loginQuit",
@@ -110,7 +110,7 @@
     },
     {
       "name": "quitTitle",
-      "value":"提示"
+      "value":" "
     },
     {
       "name": "quitHint",
@@ -123,6 +123,20 @@
     {
       "name": "cancel",
       "value":"取消"
+    },{
+      "name": "login_suc",
+      "value": "登录成功"
+    },
+    {
+      "name": "login",
+      "value": "登录"
+    },
+    {
+      "name": "input_pwd",
+      "value": "请输入密码"
+    },{
+      "name": "input_name",
+      "value": "请输入用户名"
     }
 
 

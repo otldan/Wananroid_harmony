@@ -39,12 +39,8 @@ export struct AccountPage {
       if (res.getDataOrThrow().length > 0) {
         this.treeList = res.getDataOrThrow()
         const selectTreeId = PreferencesUtils.get(getContext()).getHistory()
-        const selectParent = this.treeList.find((item) => {
-          item.id == selectTreeId.first
-        })
-        const selectChild = selectParent?.children?.find((item) => {
-          item.id == selectTreeId.second
-        })
+        const selectParent = this.treeList.find((item) =>  item.id === selectTreeId.first)
+        const selectChild = selectParent?.children?.find((item) =>  item.id === selectTreeId.second)
         //获取本地是否保存过
 
         if (selectParent != undefined && selectChild != undefined) {
@@ -161,6 +157,7 @@ export struct AccountPage {
                     this.more = true
                     this.scroller.scrollToIndex(0);
                     this.getArticleListData()
+                    PreferencesUtils.get(getContext()).putHistory(tree.id,childTree.id)
 
                   });
 

@@ -19,16 +19,16 @@ const valueBucket1: relationalStore.ValuesBucket = {
 
 export class DBUtils {
   public  creteDB() {
+    // let context: Context = getContext(this) as Context;
     relationalStore.getRdbStore(context, STORE_CONFIG, (err: BusinessError, rdbStore: relationalStore.RdbStore) => {
       store = rdbStore
-      Logger.info('create table done.'+err);
+      Logger.info("DBUtils",'create table done.'+store);
       if (store != undefined) {
         (store as relationalStore.RdbStore).executeSql(CommonConstants.SQL_CREATE_USER_TABLE, (err) => {
           if (err) {
             Logger.error(`ExecuteSql failed, code is ${err.code},message is ${err.message}`);
             return;
           }
-          Logger.info('create table done.');
           this.insertData();
         })
       }
@@ -43,9 +43,10 @@ export class DBUtils {
             Logger.error(`Insert is failed, code is ${err.code},message is ${err.message}`);
             return;
           }
-          Logger.info(`Insert is successful, rowId = ${rowId}`);
+          Logger.info("DBUtils",`Insert is successful, rowId = ${rowId}`);
         })
     }
+    Logger.info("DBUtils",`Insert is successful, `);
   }
 
   public  async queryData(): Promise<User> {
@@ -56,7 +57,7 @@ export class DBUtils {
           Logger.error(`Query failed, code is ${err.code},message is ${err.message}`);
           return;
         }
-        Logger.info(`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
+        Logger.info("DBUtils",`ResultSet column names: ${resultSet.columnNames}, column count: ${resultSet.columnCount}`);
         while (resultSet.goToNextRow()) {
           let id = resultSet.getString(resultSet.getColumnIndex("id"));
           res.setId(id);
@@ -64,8 +65,9 @@ export class DBUtils {
           try {
             name = resultSet.getString(resultSet.getColumnIndex(COLUMN_TYPE_MAP[0][0]));
             res.setNickName(name);
+            Logger.info("DBUtils",' query 结果='+name);
           } catch (error) {
-            Logger.error(`ExecuteSql failed, code is ${error.code},message is ${error.message}`);
+            Logger.error("DBUtils",`ExecuteSql failed, code is ${error.code},message is ${error.message}`);
             resultSet.close();
             return res;
           }
@@ -76,6 +78,7 @@ export class DBUtils {
         return res;
       })
     }
+    Logger.info("DBUtils",'Empty query');
     return res;
   }
 }

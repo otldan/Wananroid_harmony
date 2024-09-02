@@ -16,18 +16,18 @@ struct Login {
 
   async login() {
     if (!this.account) {
-      toast("请输入用户名");
+      toast($r('app.string.input_pwd'));
       return;
     }
     if (!this.password) {
-      toast("请输入密码");
+      toast($r('app.string.input_name'));
       return;
     }
     this.showLoading = true;
     const res = await Api.get().login(this.account, this.password);
     this.showLoading = false;
     if (res.isSuccessWithData()) {
-      toast("登录成功");
+      toast($r('app.string.login_suc'));
       UserLoginInfo.get().setUser(res.data);
       const user = await UserLoginInfo.get().updateUser();
       if (user) {
@@ -42,39 +42,39 @@ struct Login {
     Stack() {
       PageLoading({
         loadState: this.loadState,
-        showLoading: this.showLoading
+        showLoading: this.showLoading,
       }) {
         Column() {
           TitleView({
             title: this.title,
-            showBack:false
+            showBack:true
           })
           Column() {
             TextInput({
-              placeholder: "请输入用户名"
+              placeholder: $r('app.string.input_name')
             })
-              .fontSize(15)
+              .fontSize($r('app.float.float_16'))
               .fontColor($r("app.color.text_h1"))
               .type(InputType.Email)
               .onChange((value) => {
                 this.account = value
               })
             TextInput({
-              placeholder: "请输入密码"
+              placeholder: $r('app.string.input_pwd')
             })
-              .margin({ top: 16 })
-              .fontSize(15)
+              .margin({ top: $r('app.float.size_16') })
+              .fontSize($r('app.float.float_16'))
               .fontColor($r("app.color.text_h1"))
               .type(InputType.Password)
               .onChange((value) => {
                 this.password = value
               })
-            Button("登录", {
+            Button($r('app.string.login'), {
               type: ButtonType.Capsule
             })
               .width('100%')
-              .margin({ top: 50 })
-              .fontSize(15)
+              .margin({ top: $r('app.float.size_48') })
+              .fontSize($r('app.float.float_16'))
               .fontColor($r("app.color.white"))
               .backgroundColor($r("app.color.main"))
               .onClick((e) => {
@@ -83,7 +83,8 @@ struct Login {
           }
           .width('100%')
           .margin({ top: 120 })
-          .padding({ left: 16, right: 16 })
+          .padding({ left: $r('app.float.size_16'), right: $r('app.float.size_16') ,
+          top:$r('app.float.size_6'),bottom:$r('app.float.size_6')})
         }
         .width('100%')
         .height('100%')

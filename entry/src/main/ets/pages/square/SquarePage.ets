@@ -9,6 +9,7 @@ export struct SquarePage {
   squareList: SquareTab[] = getTabList()
   controller: TabsController = new TabsController();
   @State currentIndex: number = 0
+  @State chageIndex: number = 0
 
   build() {
     Column() {

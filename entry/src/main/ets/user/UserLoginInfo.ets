@@ -72,7 +72,7 @@ export default class UserLoginInfo {
     this.user = user;
     this.notifyObserver();
     const context = EntryContext.getContext() as Context;
-    // Preferences.get(context).putUser(user);
+    PreferencesUtils.get(context).putUser(user);
   }
 
   async updateUser(): Promise<User> {

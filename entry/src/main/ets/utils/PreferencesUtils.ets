@@ -1,6 +1,7 @@
 import dataPreferences from '@ohos.data.preferences';
 import { ArticleItemBean } from '../model/ArtcleItemBean';
 import { Pair } from '../model/Pair';
+import { User } from '../model/User';
 
 const PREFERENCES_NAME = "wanandroid.preferences"
 const PREFERENCES_USER = "login_info"
@@ -31,7 +32,7 @@ export default class PreferencesUtils {
 
   putUser(user?:User){
     if (user) {
-      this.preferences.putSync(PREFERENCES_USER, JSON.stringify(user, undefined, undefined));
+      this.preferences.putSync(PREFERENCES_USER, JSON.stringify(user));
     } else {
       this.preferences.deleteSync(PREFERENCES_USER);
     }

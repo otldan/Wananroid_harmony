@@ -16,6 +16,8 @@ export struct Home {
   @State loadState: LoadState = LoadState.LOADING;
   @State data: HomeItemData[] = [];
   @State bannerData: HomeBannerData[] = []
+  changeIndex?:(tabIndex:number,position:number) => void
+
   articleBean:ArticleItemBean = {
     adminAdd: false,
     apkLink: '',
@@ -130,6 +132,9 @@ export struct Home {
             .backgroundColor($r("app.color.green"))
             .height("100%")
             .justifyContent(FlexAlign.Center)
+            .onClick(()=>{
+             this.changeIndex?.(1,0)
+            })
 
             Column() {
               Image($r("app.media.wenti"))
@@ -155,6 +160,9 @@ export struct Home {
               left: $r("app.float.size_16"),
             })
             .height("100%")
+            .onClick(()=>{
+              this.changeIndex?.(1,1)
+            })
           }.width('100%')
           .padding({
             left: $r("app.float.size_16"),
