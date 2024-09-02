@@ -4,6 +4,7 @@ import { Pair } from '../../model/Pair'
 import { Tree } from '../../model/Tree'
 import Api from '../../net/Api'
 import { Logger } from '../../utils/LogUtils'
+import PreferencesUtils from '../../utils/PreferencesUtils'
 import { StringUtils } from '../../utils/StringUtils'
 import { LoadState, PageLoading } from '../../widgets/PageLoading'
 import { ArticleItem } from '../ArticleItem'
@@ -37,8 +38,24 @@ export struct AccountPage {
     if (res.isSuccessWithData()) {
       if (res.getDataOrThrow().length > 0) {
         this.treeList = res.getDataOrThrow()
-        this.selectTreeTemp = this.treeList[0];
-        this.selectTrees = { first: this.treeList[0], second: this.treeList[0].children[0] };
+        const selectTreeId = PreferencesUtils.get(getContext()).getHistory()
+        const selectParent = this.treeList.find((item) => {
+          item.id == selectTreeId.first
+        })
+        const selectChild = selectParent?.children?.find((item) => {
+          item.id == selectTreeId.second
+        })
+        //获取本地是否保存过
+
+        if (selectParent != undefined && selectChild != undefined) {
+          Logger.info("AccountPage", "本地数据 == " + selectChild.name)
+          this.selectTreeTemp = selectParent;
+          this.selectTrees = { first: selectParent, second: selectChild };
+        } else {
+          this.selectTreeTemp = this.treeList[0];
+          this.selectTrees = { first: this.treeList[0], second: this.treeList[0].children[0] };
+        }
+
         this.loadStateTree = LoadState.SUCCESS;
         this.getArticleListData()
       } else {
@@ -104,7 +121,7 @@ export struct AccountPage {
 
         Scroll() {
           Flex({ wrap: FlexWrap.Wrap }) {
-            ForEach(this.treeList, (tree: Tree, index: number) => {
+            ForEach(this.treeList, (tree: Tree) => {
               Text(tree.name)
                 .fontColor($r('app.color.text_h1'))
                 .fontWeight(700)
@@ -138,10 +155,10 @@ export struct AccountPage {
                   .borderRadius($r('app.float.size_6'))
                   .borderColor(this.selectTrees.second?.id == childTree.id ? $r('app.color.main') :
                   $r('app.color.text_h2'))
-                  .onClick(()=>{
-                    this.selectTrees = { first: tree, second:childTree };
+                  .onClick(() => {
+                    this.selectTrees = { first: tree, second: childTree };
                     this.isShowBar = false
-                    this.more =true
+                    this.more = true
                     this.scroller.scrollToIndex(0);
                     this.getArticleListData()
 
@@ -197,7 +214,7 @@ export struct AccountPage {
                 this.ArticleList();
               },
               onLoadMore: () => {
-                return new Promise<string>((resolve, reject) => {
+                return new Promise<string>((resolve) => {
                   Logger.info("是否加载完全部数据" + this.more)
                   if (this.more) {
                     this.getArticleDataByPage(this.page).then(
