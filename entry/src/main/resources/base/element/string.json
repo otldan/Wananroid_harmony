@@ -97,7 +97,35 @@
     },{
       "name": "special_column",
       "value":"专栏"
+    },{
+      "name": "integral",
+      "value":"我的积分"
+    },{
+      "name": "collect",
+      "value":"我的收藏"
+    },
+    {
+      "name": "loginQuit",
+      "value":"退出登录"
+    },
+    {
+      "name": "quitTitle",
+      "value":"提示"
+    },
+    {
+      "name": "quitHint",
+      "value":"确认退出登录？"
+    },
+    {
+      "name": "confirm",
+      "value":"确认"
+    },
+    {
+      "name": "cancel",
+      "value":"取消"
     }
+
+
 
 
   ]

@@ -1,7 +1,6 @@
 import http from '@ohos.net.http';
 import hilog from '@ohos.hilog';
 import {  ArticleList, HomeBannerData } from '../model/Article';
-import { User } from '../user/UserLoginInfo';
 import uri from '@ohos.uri';
 import PersistentCookieJar from './cookie/PersistentCookieJar';
 import CookieJar from './cookie/CookieJar';
@@ -16,6 +15,7 @@ import { PopularColumn } from '../model/PopularColumn';
 import { ArticleItem } from '../pages/ArticleItem';
 import { ArticleItemBean, ArticleItemList } from '../model/ArtcleItemBean';
 import { Tree } from '../model/Tree';
+import { User } from '../model/User';
 
 const TAG = "Api";
 const BASE_URL: string = "https://www.wanandroid.com";

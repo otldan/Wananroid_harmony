@@ -1,14 +1,15 @@
 import promptAction from '@ohos.promptAction';
 import router from '@ohos.router';
 import EntryContext from '../common/EntryContext';
+import { User } from '../model/User';
 import Api from '../net/Api';
-// import Preferences from '../common/Preferences';
+import PreferencesUtils from '../utils/PreferencesUtils';
 
 export default class UserLoginInfo {
   private static instance: UserLoginInfo
-  private static TAG = "UserService"
+  private static TAG = "UserLoginInfo"
   private user?: User
-  private userObservers: ((user?: User) => void)[] = []
+  private userListenerList: ((user?: User) => void)[] = []
 
   static get(): UserLoginInfo {
     if (UserLoginInfo.instance === undefined) {
@@ -18,13 +19,13 @@ export default class UserLoginInfo {
   }
 
   private constructor() {
-    // const context = EntryContext.getContext() as Context;
-    // const user = Preferences.get(context).getUser()
-    // if (user) {
-    //   this.user = user;
-    //   this.notifyObserver();
-    //   this.updateUser().catch();
-    // }
+    const context = EntryContext.getContext() as Context;
+    const user:User |undefined = PreferencesUtils.get(context).getUser()
+    if (user != undefined) {
+      this.user = user;
+      this.notifyObserver();
+      this.updateUser().catch();
+    }
   }
 
   isLogin(): boolean {
@@ -92,23 +93,23 @@ export default class UserLoginInfo {
     }
   }
 
-  addUserObserver(observer: (user?: User) => void) {
-    if (!this.userObservers.includes(observer)) {
-      this.userObservers.push(observer);
+  addListener(listener: (user?: User) => void) {
+    if (!this.userListenerList.includes(listener)) {
+      this.userListenerList.push(listener);
     }
   }
 
-  removeUserObserver(observer: (user?: User) => void) {
-    const index = this.userObservers.indexOf(observer);
+  removeUserListener(listener: (user?: User) => void) {
+    const index = this.userListenerList.indexOf(listener);
     if (index >= 0) {
-      this.userObservers.splice(index, 1);
+      this.userListenerList.splice(index, 1);
     }
   }
 
   private notifyObserver() {
-    this.userObservers.forEach((observer) => {
-      if (observer) {
-        observer(this.user);
+    this.userListenerList.forEach((listener) => {
+      if (listener) {
+        listener(this.user);
       }
     });
   }
@@ -119,15 +120,3 @@ export default class UserLoginInfo {
   }
 }
 
-export class User {
-  id: number = 0
-  username: string = ""
-  nickname: string = ""
-  chapterTops: object[] = []
-  coinCount: number = 0
-  collectIds: number[] = []
-  email: string = ""
-  icon: string = ""
-  level: string = ""
-  rank: string = ""
-}

@@ -1,7 +1,6 @@
 import dataPreferences from '@ohos.data.preferences';
 import { ArticleItemBean } from '../model/ArtcleItemBean';
 import { Pair } from '../model/Pair';
-import { User } from '../user/UserLoginInfo';
 
 const PREFERENCES_NAME = "wanandroid.preferences"
 const PREFERENCES_USER = "login_info"
