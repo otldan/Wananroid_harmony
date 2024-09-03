@@ -19,3 +19,8 @@
 
 ## 项目演示
 
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193907.png?raw=true)
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193921.png?raw=true)
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193934.png?raw=true)
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193939.png?raw=true)
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193948.png?raw=true)
