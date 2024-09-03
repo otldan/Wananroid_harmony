@@ -1,4 +1,6 @@
 # 鸿蒙_WanAndroid
+![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Video_24-09-03_19-43-18%20(1).gif?raw=true)
+
 ## 开发环境
 - HarmonyOS NEXT Developer Beta6
 - sdk-version : 5.0.0
@@ -18,7 +20,6 @@
 - 浏览记录（已有数据库，未写界面）
 
 ## 项目演示
-
 ![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193907.png?raw=true)
 ![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193921.png?raw=true)
 ![](https://github.com/otldan/Wananroid_harmony/blob/master/sceenImage/Screenshot_2024-09-03T193934.png?raw=true)
