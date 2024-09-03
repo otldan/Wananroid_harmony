@@ -53,7 +53,8 @@ export struct Home {
     type: 0,
     userId: 0,
     visible: 0,
-    zan: 0
+    zan: 0,
+    originId :0
   }
   aboutToAppear(): void {
     Logger.info("首页 aboutToAppear")

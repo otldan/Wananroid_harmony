@@ -1,19 +1,22 @@
-import WindowUtils from '../common/WindowUtils'
 import { ArticleItemBean } from '../model/ArtcleItemBean'
 import { common, Context } from '@kit.AbilityKit'
 import EntryContext from '../common/EntryContext'
-import { hilog } from '@kit.PerformanceAnalysisKit'
 import { RouterUtils } from '../utils/RouterUtils'
+import UserLoginInfo from '../user/UserLoginInfo'
+import Api from '../net/Api'
+import { toast } from '../utils/Toast'
+import { getArticleChapter } from '../model/Article'
 
 @Component
 export struct ArticleItem {
   @Prop
-  articleBean:ArticleItemBean
+  articleBean: ArticleItemBean
+  collectCallBack?: (articleBean: ArticleItemBean) => void
 
   build() {
     RelativeContainer() {
 
-      Image($r('app.media.collect_default_select'))
+      Image(this.articleBean.collect == true ? $r('app.media.collect_select') : $r('app.media.collect_default_select'))
         .objectFit(ImageFit.Contain)
         .width($r('app.float.size_60'))
         .height($r('app.float.size_120'))
@@ -29,8 +32,11 @@ export struct ArticleItem {
           bottom: { anchor: '__container__', align: VerticalAlign.Bottom }
         })
         .id('collect')
+        .onClick(() => {
+          this.collectCallBack?.(this.articleBean)
+        })
 
-      if (this.articleBean){
+      if (this.articleBean) {
         Row() {
           Text(this.articleBean.title)
             .maxLines(1)
@@ -47,31 +53,35 @@ export struct ArticleItem {
 
         }).width('100%')
         .margin({
-          top:$r('app.float.size_14')
+          top: $r('app.float.size_14')
         })
 
-        Row(){
-          Text( getString($r('app.string.shareUser')) + `${this.articleBean.shareUser}` )
-            .maxLines(1)
-            .ellipsisMode(EllipsisMode.END)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .fontColor($r('app.color.text_h2'))
-            .fontSize($r('app.float.float_14'))
-          Text(getString($r('app.string.sort'))+this.articleBean.superChapterName+"/"+this.articleBean.chapterName)
+        Row() {
+          if (this.articleBean.shareUser) {
+            Text(getString($r('app.string.shareUser')) + `${this.articleBean.shareUser}`)
+              .maxLines(1)
+              .ellipsisMode(EllipsisMode.END)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .fontColor($r('app.color.text_h2'))
+              .fontSize($r('app.float.float_14'))
+              .margin({
+                right: $r('app.float.size_14')
+              })
+          }
+
+          Text(getString($r('app.string.sort')) + getArticleChapter(this.articleBean))
             .maxLines(1)
             .ellipsisMode(EllipsisMode.END)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
             .fontColor($r('app.color.text_h2'))
             .fontSize($r('app.float.float_14'))
             .textAlign(TextAlign.Start)
-            .margin({
-              left:$r('app.float.size_14')
-            })
+
         }.alignRules({
-            bottom: { anchor: '__container__', align: VerticalAlign.Bottom },
-            left: { anchor: "collect", align: HorizontalAlign.End },
-          }).width("100%").margin({
-          bottom:$r('app.float.size_14')
+          bottom: { anchor: '__container__', align: VerticalAlign.Bottom },
+          left: { anchor: "collect", align: HorizontalAlign.End },
+        }).width("100%").margin({
+          bottom: $r('app.float.size_14')
         })
       }
 
@@ -79,22 +89,17 @@ export struct ArticleItem {
     .width('100%')
     .height($r('app.float.size_76'))
     .padding({
-      right :$r('app.float.size_55'),
-    }).onClick(()=>{
-      RouterUtils.jumpWebPage(this.articleBean.link,this.articleBean.title)
+      right: $r('app.float.size_55'),
+    }).onClick(() => {
+      RouterUtils.jumpWebPage(this.articleBean.link, this.articleBean.title)
     })
 
   }
-
-
-
-
 }
 
 
-
-function getString(content:Resource):string{
-  let context:Context = EntryContext.getContext() as Context
+function getString(content: Resource): string {
+  let context: Context = EntryContext.getContext() as Context
   return context.resourceManager.getStringSync(content)
 
 }

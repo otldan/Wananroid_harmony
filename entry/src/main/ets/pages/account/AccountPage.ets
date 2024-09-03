@@ -3,6 +3,7 @@ import { ArticleItemBean } from '../../model/ArtcleItemBean'
 import { Pair } from '../../model/Pair'
 import { Tree } from '../../model/Tree'
 import Api from '../../net/Api'
+import CollectUtils from '../../utils/CollectUtils'
 import { Logger } from '../../utils/LogUtils'
 import PreferencesUtils from '../../utils/PreferencesUtils'
 import { StringUtils } from '../../utils/StringUtils'
@@ -266,7 +267,18 @@ export struct AccountPage {
       ForEach(this.dataList, (item: ArticleItemBean) => {
         ListItem() {
           ArticleItem({
-            articleBean: item
+            articleBean: item,
+            collectCallBack: async (itemBean: ArticleItemBean)=>{
+              const result = await  CollectUtils.collect(itemBean)
+              if (result) {
+                this.dataList = this.dataList.map(item => {
+                  if (itemBean.id == item.id) {
+                    item.collect =itemBean.collect
+                  }
+                  return item
+                });
+              }
+            }
           })
         }
       })

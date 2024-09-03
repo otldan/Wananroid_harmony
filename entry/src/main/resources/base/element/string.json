@@ -10,7 +10,7 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "鸿蒙WanAndroid"
     },
     {
       "name": "internet_permission_reason",
@@ -137,6 +137,10 @@
     },{
       "name": "input_name",
       "value": "请输入用户名"
+    },
+    {
+      "name": "myCollect",
+      "value": "我的收藏"
     }
 
 

@@ -14,7 +14,7 @@ import CollectUtils from '../utils/CollectUtils'
 
 @Entry
 @Component
-struct PopularList {
+struct CollectListPage {
   @State loadState: LoadState = LoadState.LOADING;
   @State showLoading: boolean = false;
   @State data: ArticleItemBean[] = [];
@@ -47,9 +47,12 @@ struct PopularList {
   }
 
   private async getPopularItemList(page:number):Promise<ArticleItemBean[]>{
-   const  data = await Api.get().getPopularItemList( this.params.cid, page)
+   const  data = await Api.get().getCollectList(page)
     if (data.isSuccessWithData()) {
       const list = data.getDataOrThrow().datas;
+      list.forEach((item) => {
+        item.collect = true;
+      })
      return Promise.resolve(list)
     } else {
       return Promise.reject()
@@ -61,7 +64,7 @@ struct PopularList {
   build() {
     Column() {
       TitleView({
-        title: this.params.title
+        title: StringUtils.getString($r('app.string.myCollect'))
       })
       PageLoading({
         loadState: this.loadState,
@@ -133,7 +136,7 @@ struct PopularList {
         ArticleItem({
           articleBean:item,
           collectCallBack: async (itemBean: ArticleItemBean)=>{
-            const result = await  CollectUtils.collect(itemBean)
+            const result = await  CollectUtils.collect(itemBean,itemBean.originId)
             if (result) {
               this.data = this.data.map(item => {
                 if (itemBean.id == item.id) {

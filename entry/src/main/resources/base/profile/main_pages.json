@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/WebPage",
     "pages/PopularList",
-    "pages/Login"
+    "pages/Login",
+    "pages/CollectListPage"
   ]
 }

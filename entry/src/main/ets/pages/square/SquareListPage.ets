@@ -6,6 +6,7 @@ import { PullToRefresh, PullToRefreshConfigurator } from '@ohos/pulltorefresh';
 import { ArticleItem } from '../ArticleItem';
 import { ArticleItemBean } from '../../model/ArtcleItemBean';
 import { StringUtils } from '../../utils/StringUtils';
+import CollectUtils from '../../utils/CollectUtils';
 
 @Component
 export struct SquareListPage {
@@ -57,7 +58,7 @@ export struct SquareListPage {
       }
     }){
       PullToRefresh({
-        data:this.articleList,
+        data:$articleList,
         scroller:this.scroller,
         refreshConfigurator:this.refreshConfig,
         customList:()=>{
@@ -113,7 +114,18 @@ export struct SquareListPage {
       ForEach(this.articleList, (item: ArticleItemBean) => {
         ListItem() {
           ArticleItem({
-            articleBean:item
+            articleBean:item,
+            collectCallBack: async (itemBean: ArticleItemBean)=>{
+              const result = await  CollectUtils.collect(itemBean)
+              if (result) {
+                this.articleList = this.articleList.map(item => {
+                  if (itemBean.id == item.id) {
+                    item.collect =itemBean.collect
+                  }
+                  return item
+                });
+              }
+            }
           })
         }
       })

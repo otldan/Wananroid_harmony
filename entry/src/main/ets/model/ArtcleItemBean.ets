@@ -43,4 +43,5 @@ export class  ArticleItemBean {
   userId: number = 0;
   visible: number = 0;
   zan: number = 0;
+  originId:number = 0;
 }

@@ -4,7 +4,8 @@ import { TitleView } from '../widgets/TitleView';
 import { promptAction, router } from '@kit.ArkUI';
 import { User } from '../model/User';
 import Api from '../net/Api';
-import  {LOGIN }  from '../common/Constant'
+import  { COLLECT, LOGIN }  from '../common/Constant'
+import { RouterUtils } from '../utils/RouterUtils';
 
 
 @Component
@@ -72,6 +73,32 @@ export struct Mine {
         .backgroundColor($r("app.color.white"))
         .onClick((e) => {
           UserLoginInfo.get().checkLogin()
+        })
+        Divider()
+          .width('100%')
+          .strokeWidth(0.5)
+          .vertical(false)
+          .height($r('app.float.size_16'))
+          .lineCap(LineCapStyle.Round)
+          .color($r('app.color.divider'))
+
+        Row() {
+          Text($r('app.string.myCollect'))
+            .layoutWeight(1)
+            .fontSize($r('app.float.float_16'))
+            .fontColor($r("app.color.text_h1"))
+          Image($r("app.media.ic_arrow_right"))
+            .fillColor($r("app.color.text_h1"))
+            .width(20)
+            .height(20)
+        }
+        .width('100%')
+        .height(50)
+        .alignItems(VerticalAlign.Center)
+        .padding({ left: 16, right: 16 })
+        .backgroundColor($r("app.color.white"))
+        .onClick((event) => {
+          RouterUtils.jumpPage(COLLECT)
         })
         Divider()
           .width('100%')
